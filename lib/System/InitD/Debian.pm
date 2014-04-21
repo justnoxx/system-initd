@@ -4,13 +4,15 @@ use strict;
 use warnings;
 
 use Template;
+use File::ShareDir;
 
 use constant TEMPLATE => 'debian.tt';
 
 sub generate {
-	return "generated";
+	my $data_location = dist_file('System-InitD', TEMPLATE);
+	print "Location: $data_location\n";
 };
 
 1;
 
-__END__;
+__END__
