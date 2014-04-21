@@ -1,0 +1,31 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use Getopt::Long;
+
+my $options {
+	os 	=>	'debian',
+};
+
+main();
+
+sub main {
+	parse_args();
+
+	if (lc $options->{os} eq 'debian') {
+		require System::InitD::Debian;
+		System::InitD::Debian::generate($options);
+	}
+	else {
+		croak 'Unknown OS';
+	}
+
+	1;
+};
+
+sub parse_args {
+	GetOptions(
+		"os=s" => \$options->{os},
+	);
+}
