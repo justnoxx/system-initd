@@ -3,29 +3,38 @@
 use strict;
 use warnings;
 use Getopt::Long;
+use Carp;
 
-my $options {
-	os 	=>	'debian',
+my $options = {
+    os      =>  'debian',
+    target  =>  'perl_init_d_script',
 };
 
 main();
 
+
 sub main {
-	parse_args();
+    parse_args();
 
-	if (lc $options->{os} eq 'debian') {
-		require System::InitD::Debian;
-		System::InitD::Debian::generate($options);
-	}
-	else {
-		croak 'Unknown OS';
-	}
+    if (lc $options->{os} eq 'debian') {
+        require System::InitD::Debian;
+        System::InitD::Debian::generate($options);
+    }
+    else {
+        croak 'Unknown OS';
+    }
 
-	1;
+    1;
 };
 
+
 sub parse_args {
-	GetOptions(
-		"os=s" => \$options->{os},
-	);
+    GetOptions(
+        'os=s'      =>  \$options->{os},
+        # "name=s"    =>  \$options->{name},
+        'target=s'  =>  \$options->{target},
+        "author=s"  =>  \$options->{author},
+    );
 }
+
+exit 0;

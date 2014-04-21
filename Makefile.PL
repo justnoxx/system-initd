@@ -12,7 +12,8 @@ WriteMakefile(
     VERSION_FROM     => 'lib/System/InitD.pm',
     # ABSTRACT_FROM    => 'lib/System/InitD.pm',
     LICENSE          => 'perl',
-    PL_FILES         => {}, 
+    PL_FILES         => {},
+    EXE_FILES        => ['script/geninit'],
     MIN_PERL_VERSION => 5.006,
     CONFIGURE_REQUIRES => {
         'ExtUtils::MakeMaker' => 0,
