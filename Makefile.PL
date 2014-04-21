@@ -9,8 +9,8 @@ install_share dist => 'share';
 WriteMakefile(
     NAME             => 'System::InitD',
     AUTHOR           => 'Shamatrin D.',
-    VERSION_FROM     => 'System/InitD.pm',
-    ABSTRACT_FROM    => 'System/InitD.pm',
+    VERSION_FROM     => 'lib/System/InitD.pm',
+    # ABSTRACT_FROM    => 'lib/System/InitD.pm',
     LICENSE          => 'perl',
     PL_FILES         => {}, 
     MIN_PERL_VERSION => 5.006,
