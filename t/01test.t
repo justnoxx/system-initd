@@ -73,12 +73,12 @@ $res = `$init status`; chomp $res;
 is $res, 'Daemon already running', 'must be running';
 
 #
-# check whether daemon realy worked
+# check whether daemon really worked
 #
 my $cv = AE::cv;
 tcp_connect "unix/", $sock, sub {
     my ($fh) = @_;
-    ok $fh, "server is realy worked";
+    ok $fh, "server is really worked";
     $cv->send;
 };
 $cv->recv;
