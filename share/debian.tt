@@ -25,15 +25,15 @@ use warnings;
 use System::InitD::Runner;
 
 # path to pidfile here:
-my $pid = '';
+my $pid = '[% pid_file %]';
 
 my $runner = System::InitD::Runner->new(
     usage           =>  'start|stop|usage|status',
     # proces name here:
-    process_name    =>  '',
+    process_name    =>  '[% process_name %]',
     start           =>  {
         # start command here:
-        cmd     =>  '',
+        cmd     =>  '[% start_cmd %]',
         # args here:
         args    =>  [],
     },

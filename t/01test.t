@@ -77,10 +77,10 @@ system "$init stop"; sleep 2;
 $res = `$init status`; chomp $res;
 is $res, 'Daemon is not running', 'must be not running';
 
-#unlink $init;
-#unlink $exec;
-#unlink $sock;
-#unlink $fpid;
+unlink $init;
+unlink $exec;
+unlink $sock;
+unlink $fpid;
 
 
 done_testing();

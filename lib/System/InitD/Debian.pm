@@ -20,6 +20,7 @@ sub generate {
 
     $generator->set_render_params({
         author      =>  getlogin,
+        %{$options->{render_params}//{}},
     });
 
     $generator->write_script($data_location);
