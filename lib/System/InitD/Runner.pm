@@ -74,6 +74,7 @@ sub run {
     return 1;
 }
 
+
 sub start {
     my $self = shift;
 
@@ -89,6 +90,7 @@ sub start {
     return 1;
 }
 
+
 sub stop {
     my $self = shift;
 
@@ -98,6 +100,7 @@ sub stop {
     }
     return 1;
 }
+
 
 sub restart {
     my $self = shift;
@@ -111,6 +114,7 @@ sub restart {
     $self->start();
     return 1;
 }
+
 
 sub status {
     my $self = shift;
@@ -127,12 +131,14 @@ sub status {
     exit 0;
 }
 
+
 sub usage {
     my $self = shift;
 
     print $self->{_text}->{usage}, "\n";
     return 1;
 }
+
 
 sub is_alive {
     my $self = shift;
@@ -142,4 +148,24 @@ sub is_alive {
 
     return 0;
 }
+
+
+sub load {
+    my ($self, $subname, $subref) = @_;
+
+    if (!$subname || !$subref) {
+        croak 'Missing params';
+    }
+
+    croak 'Subref must be a CODE ref' if (ref $subref ne 'CODE');
+
+    no strict 'refs';
+    *{__PACKAGE__ . "\::$subname"} = $subref;
+    use strict 'refs';
+
+    return 1;
+}
+
 1;
+
+__END__
