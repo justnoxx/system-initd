@@ -5,9 +5,12 @@
 use strict;
 use warnings;
 
-use Test::More tests => 4;
+use Test::More tests => 5;
 
 use File::Temp qw/ tempfile /;
+use AnyEvent;
+use AnyEvent::Socket;
+
 use Data::Dumper;
 
 my $uniq = 'uid_test_str';
@@ -68,6 +71,17 @@ system "$init start"; sleep 2;
 #
 $res = `$init status`; chomp $res;
 is $res, 'Daemon already running', 'must be running';
+
+#
+# check whether daemon realy worked
+#
+my $cv = AE::cv;
+tcp_connect "unix/", $sock, sub {
+    my ($fh) = @_;
+    ok $fh, "server is realy worked";
+    $cv->send;
+};
+$cv->recv;
 
 system "$init stop"; sleep 2;
 
