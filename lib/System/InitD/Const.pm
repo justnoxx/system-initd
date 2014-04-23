@@ -15,11 +15,11 @@ Constants bundle for System::InitD package
 use strict;
 use warnings;
 
-use Exporter;
+use base qw/Exporter/;
 
 our @EXPORT = qw/
     DAEMON_ALREADY_RUNNING
-    DAEMON_NOT_RUNNING
+    DAEMON_IS_NOT_RUNNING
 /;
 
 use constant DAEMON_ALREADY_RUNNING => "Daemon already running";
