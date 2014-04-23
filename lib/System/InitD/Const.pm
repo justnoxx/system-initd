@@ -17,7 +17,7 @@ use warnings;
 
 use Exporter;
 
-our @EXPORT_OK = qw/
+our @EXPORT = qw/
     DAEMON_ALREADY_RUNNING
     DAEMON_NOT_RUNNING
 /;
