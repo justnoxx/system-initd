@@ -11,7 +11,9 @@ use File::Temp qw/ tempfile /;
 use AnyEvent;
 use AnyEvent::Socket;
 
-use Data::Dumper;
+use constant RUNNING => 'Daemon already running';
+use constant STOPPED => 'Daemon is not running';
+
 
 my $uniq = 'uid_test_str';
 my $pid = $$;
@@ -62,7 +64,7 @@ System::InitD::Debian::generate($options);
 # check whether daemon currently is not running
 #
 $res = `$init status`; chomp $res;
-is $res, 'Daemon is not running', 'must be not running';
+is $res, STOPPED, 'must be not running';
 
 system "$init start"; sleep 2;
 
@@ -70,7 +72,7 @@ system "$init start"; sleep 2;
 # check daemon must be running
 #
 $res = `$init status`; chomp $res;
-is $res, 'Daemon already running', 'must be running';
+is $res, RUNNING, 'must be running';
 
 #
 # check whether daemon really worked
@@ -89,7 +91,7 @@ system "$init stop"; sleep 2;
 # check that daemon must be shutdown
 #
 $res = `$init status`; chomp $res;
-is $res, 'Daemon is not running', 'must be not running';
+is $res, STOPPED, 'must be not running';
 
 unlink $init;
 unlink $exec;
