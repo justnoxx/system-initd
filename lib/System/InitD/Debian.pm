@@ -7,7 +7,6 @@ use warnings;
 
 use Template;
 use File::ShareDir qw/dist_file/;
-use Data::Dumper;
 
 use constant TEMPLATE => 'debian.tt';
 
@@ -17,10 +16,9 @@ sub generate {
     my $generator = __PACKAGE__->new($options);
 
     my $data_location = dist_file('System-InitD', TEMPLATE);
-
-    $generator->set_render_params({
-        author      =>  getlogin,
-    });
+    
+    # пока-что так, MVP
+    $generator->forward_render_params($options, keys %$options);
 
     $generator->write_script($data_location);
     return 1;

@@ -2,39 +2,11 @@
 
 use strict;
 use warnings;
-use Getopt::Long;
-use Carp;
+use System::InitD::GenInit;
 
-my $options = {
-    os      =>  'debian',
-    target  =>  'perl_init_d_script',
-};
+my $geninit = System::InitD::GenInit->new();
 
-main();
+$geninit->run();
 
-
-sub main {
-    parse_args();
-
-    if (lc $options->{os} eq 'debian') {
-        require System::InitD::Debian;
-        System::InitD::Debian::generate($options);
-    }
-    else {
-        croak 'Unknown OS';
-    }
-
-    1;
-};
-
-
-sub parse_args {
-    GetOptions(
-        'os=s'      =>  \$options->{os},
-        # "name=s"    =>  \$options->{name},
-        'target=s'  =>  \$options->{target},
-        "author=s"  =>  \$options->{author},
-    );
-}
 
 exit 0;
