@@ -27,6 +27,9 @@ WriteMakefile(
     # },
     # dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     # clean => { FILES => 'Data-Dir-*' },
+    "test" => {
+        "TESTS" => "t/*.t"
+    }
 );
 
 package MY;
