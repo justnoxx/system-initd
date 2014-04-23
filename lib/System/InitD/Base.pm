@@ -13,6 +13,7 @@ sub new {
 
     my $self = {
         _options     =>  $options,
+        _rp          =>  {},
     };
     return bless $self, $class;
 }

@@ -1,10 +1,75 @@
 package System::InitD::Runner;
 
+=head NAME
+
+System::InitD::Runner
+
+=head1 DESCRIPTION
+
+Simple module to process common init.d tasks.
+init.d bash scripts replacement
+
+=head1 AUTHOR
+
+Dmitriy @justnoxx Shamatrin
+
+=head1 USAGE
+
+=cut
+
 use strict;
 use warnings;
+no warnings qw/once/;
+
 use Carp;
 use System::Process;
 use POSIX;
+
+use System::InitD::Const;
+use System::InitD::Base;
+use System::InitD::Const;
+use System::InitD::Debian;
+
+=over
+
+=item B<new>
+
+new(%)
+
+Constructor, params:
+
+B<start>
+
+A start command
+
+B<usage>
+
+Usage line, called by script usage
+
+B<daemon_name>
+
+Now unused, reserved for output format
+
+B<restart_timeout>
+
+Timeout between stop and start in restart
+
+B<pid_file>
+
+Path to pid file, which used for monitoring
+
+B<process_name>
+
+B<EXACT> daemon process name. Need for preventing wrong kill.
+
+B<kill_signal>
+
+Signal, which used for daemon killing.
+
+=back
+
+=cut
+
 
 sub new {
     my ($class, %params) = @_;
@@ -57,6 +122,16 @@ sub new {
 }
 
 
+=over
+
+=item B<run>
+
+Runner itself, service sub
+
+=back
+
+=cut
+
 sub run {
     my $self = shift;
     unless ($ARGV[0]) {
@@ -82,7 +157,7 @@ sub start {
     my $command = $self->{_commands}->{start}->{cmd};
 
     if ($self->is_alive()) {
-        print "Daemon already running\n";
+        print DAEMON_ALREADY_RUNNING;
         return;
     }
     my @args = @{$self->{_commands}->{start}->{args}};
@@ -120,12 +195,12 @@ sub status {
     my $self = shift;
 
     unless ($self->{pid}) {
-        print "Daemon is not running";
+        print DAEMON_IS_NOT_RUNNING;
         exit 0;
     }
 
     if ($self->is_alive()) {
-        print "Daemon already running";
+        print DAEMON_ALREADY_RUNNING;
     }
 
     exit 0;
@@ -149,6 +224,19 @@ sub is_alive {
     return 0;
 }
 
+=over
+
+=item B<load>
+
+load($,\&)
+
+Loads additional actions to init script, for example, add `script hello` possible via:
+
+$runner->load('hello', sub {print 'Hello world'})
+
+=back
+
+=cut
 
 sub load {
     my ($self, $subname, $subref) = @_;
