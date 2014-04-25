@@ -76,6 +76,11 @@ is `$INIT_SCRIPT status`, $RUNNING, 'Running';
 
 system "$INIT_SCRIPT", 'stop';
 
+unlink $DAEMON_FILE;
+unlink $INIT_SCRIPT;
+unlink $PID_FILE;
+
+
 __DATA__
 #!/usr/bin/env perl
 use strict;
