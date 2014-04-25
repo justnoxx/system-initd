@@ -30,10 +30,9 @@ my $PID_FILE       =  $cwd . '/test.pid';
 my $RUNNING        =  'Daemon already running'; 
 my $NOT_RUNNING    =  'Daemon is not running';
 
-
-# exit 1;
 my $script = sprintf join ('', <DATA>), $PROCESS_NAME, $PID_FILE;
 open DAEMON, '>', $DAEMON_FILE;
+chmod 0755, $DAEMON_FILE;
 print DAEMON $script;
 close DAEMON;
 
@@ -49,21 +48,22 @@ my $options = {
 require System::InitD::Debian;
 import System::InitD::Debian;
 System::InitD::Debian::generate($options);
+chmod 0755, $INIT_SCRIPT;
 
 # 3:
 ok -e $DAEMON_FILE && -s $DAEMON_FILE, 'Daemon file exists and not empty';
 
 # 4:
-ok -e $PID_FILE && -s $PID_FILE, 'PID file exists and not empty';
-
-# 5:
 ok -e $INIT_SCRIPT && -s $INIT_SCRIPT, 'Init script exists and not empty';
 
-# 6:
+# 5:
 is `$INIT_SCRIPT status`, $NOT_RUNNING, 'Not running';
 
 system $INIT_SCRIPT, 'start';
 sleep 2;
+
+# 6:
+ok -e $PID_FILE && -s $PID_FILE, 'PID file exists and not empty';
 
 # 7:
 is `$INIT_SCRIPT status`, $RUNNING, 'Running';
