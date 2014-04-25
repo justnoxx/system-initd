@@ -30,10 +30,10 @@ my $data;
     $data = <DATA>;
 }
 
-my ( undef, $init ) = tempfile( 'tmp_init_XXXXXX', TMPDIR => 1, OPEN => 0 );
-my ( undef, $exec ) = tempfile( 'tmp_exec_XXXXXX', TMPDIR => 1, OPEN => 0 );
-my ( undef, $sock ) = tempfile( 'tmp_sock_XXXXXX', TMPDIR => 1, OPEN => 0 );
-my ( undef, $fpid ) = tempfile( 'tmp_fpid_XXXXXX', TMPDIR => 1, OPEN => 0 );
+my ( undef, $init ) = tempfile( 'tmp_init_XXXXXX', TMPDIR => 1, OPEN => 1 );
+my ( undef, $exec ) = tempfile( 'tmp_exec_XXXXXX', TMPDIR => 1, OPEN => 1 );
+my ( undef, $sock ) = tempfile( 'tmp_sock_XXXXXX', TMPDIR => 1, OPEN => 1 );
+my ( undef, $fpid ) = tempfile( 'tmp_fpid_XXXXXX', TMPDIR => 1, OPEN => 1 );
     
 $data =~ s|HOST|unix/|m;
 $data =~ s|PORT|$sock|m;
@@ -48,13 +48,11 @@ chmod 0755, $exec;
 
 
 my $options = {
-    os        => 'debian',
-    target    => $init,
-    render_params => {
-        process_name => $uniq,
-        start_cmd    => "$exec 2>&1 &",
-        pid_file     => $fpid,
-    }
+    os           => 'debian',
+    target       => $init,
+    process_name => $uniq,
+    start_cmd    => "$exec 2>&1 &",
+    pid_file     => $fpid,
 };
 
 require System::InitD::Debian;
@@ -68,6 +66,9 @@ is $res, STOPPED, 'must be not running';
 
 system "$init start"; sleep 2;
 
+diag $fpid;
+
+<>;
 #
 # check daemon must be running
 #
