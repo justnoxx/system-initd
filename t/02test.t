@@ -9,10 +9,15 @@ use Cwd;
 use Test::More tests => 7;
 
 my $cwd = getcwd;
-my @cwd = split '\/', $cwd;
-$cwd[$#cwd] = 'tmp';
-$cwd = join '/', @cwd;
-$cwd =~ s/\/$//;
+if ($cwd =~ m/t\/?$/s) {
+    my @cwd = split '\/', $cwd;
+    $cwd[$#cwd] = 'tmp';
+    $cwd = join '/', @cwd;
+}
+else {
+    $cwd .= '/tmp';
+}
+
 
 
 # 1: use System::InitD
@@ -31,9 +36,10 @@ my $RUNNING        =  'Daemon already running';
 my $NOT_RUNNING    =  'Daemon is not running';
 
 my $script = sprintf join ('', <DATA>), $PROCESS_NAME, $PID_FILE;
-open DAEMON, '>', $DAEMON_FILE;
+
+open DAEMON, '>', $DAEMON_FILE or BAIL_OUT "ERROR $!";;
 chmod 0755, $DAEMON_FILE;
-print DAEMON $script;
+print DAEMON $script or BAIL_OUT "ERROR $!";
 close DAEMON;
 
 
