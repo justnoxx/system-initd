@@ -30,10 +30,10 @@ my $data;
     $data = <DATA>;
 }
 
-my ( undef, $init ) = tempfile( 'tmp_init_XXXXXX', TMPDIR => 1, OPEN => 1 );
-my ( undef, $exec ) = tempfile( 'tmp_exec_XXXXXX', TMPDIR => 1, OPEN => 1 );
-my ( undef, $sock ) = tempfile( 'tmp_sock_XXXXXX', TMPDIR => 1, OPEN => 1 );
-my ( undef, $fpid ) = tempfile( 'tmp_fpid_XXXXXX', TMPDIR => 1, OPEN => 1 );
+my ( undef, $init ) = tempfile( 'tmp_init_XXXXXX', TMPDIR => 1, OPEN => 0 );
+my ( undef, $exec ) = tempfile( 'tmp_exec_XXXXXX', TMPDIR => 1, OPEN => 0 );
+my ( undef, $sock ) = tempfile( 'tmp_sock_XXXXXX', TMPDIR => 1, OPEN => 0 );
+my ( undef, $fpid ) = tempfile( 'tmp_fpid_XXXXXX', TMPDIR => 1, OPEN => 0 );
     
 $data =~ s|HOST|unix/|m;
 $data =~ s|PORT|$sock|m;
@@ -66,9 +66,6 @@ is $res, STOPPED, 'must be not running';
 
 system "$init start"; sleep 2;
 
-diag $fpid;
-
-<>;
 #
 # check daemon must be running
 #
