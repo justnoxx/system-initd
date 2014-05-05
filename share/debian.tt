@@ -28,17 +28,13 @@ use System::InitD::Runner;
 my $pid = '[% pid_file %]';
 
 my $runner = System::InitD::Runner->new(
-    usage           =>  'start|stop|usage|status',
+    usage               =>  'start|stop|usage|status',
     # proces name here:
-    process_name    =>  '[% process_name %]',
-    start           =>  {
-        # start command here:
-        cmd     =>  '[% start_cmd %]',
-        # args here:
-        args    =>  [],
-    },
-    restart_timeout    =>  5,
-    pid_file    =>  $pid,
+    process_name        =>  '[% process_name %]',
+    # start cmd here
+    start               =>  '[% start_cmd %]',
+    restart_timeout     =>  5,
+    pid_file            =>  $pid,
 );
 
 $runner->run();

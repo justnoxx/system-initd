@@ -76,7 +76,7 @@ sub new {
     my $self = {};
 
     if (!$params{start}) {
-        croak "start param is required";
+        croak "Start param is required";
     }
 
     if (!$params{usage}) {
@@ -87,17 +87,12 @@ sub new {
         $self->{daemon_name} = $params{daemon_name};
     }
 
-    # if (ref $params{usage} eq 'CODE') {
-    #     *{__PACKAGE__::usage} = $params{usage};
-    # }
     else {
         $self->{_text}->{usage} = $params{usage};
     }
 
-    $self->{_commands} = {
-        start   =>  $params{start},
-        stop    =>  $params{stop},
-    };
+    # Команда это теперь массив, для system
+    @{$self->{_commands}->{start}} = split /\s+/, $params{start};
 
     if ($params{restart_timeout}) {
         $self->{_args}->{restart_timeout} = $params{restart_timeout};
@@ -154,14 +149,13 @@ sub start {
     my $self = shift;
 
     # TODO: Add command check
-    my $command = $self->{_commands}->{start}->{cmd};
-
+    # my $command = $self->{_commands}->{start}->{cmd};
+    my @command = @{$self->{_commands}->{start}};
     if ($self->is_alive()) {
         print DAEMON_ALREADY_RUNNING;
         return;
     }
-    my @args = @{$self->{_commands}->{start}->{args}};
-    system($command, @args);
+    system(@command);
     return 1;
 }
 
@@ -223,6 +217,7 @@ sub is_alive {
 
     return 0;
 }
+
 
 =over
 
