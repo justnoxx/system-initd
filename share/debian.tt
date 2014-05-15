@@ -24,17 +24,24 @@ use warnings;
 
 use System::InitD::Runner;
 
+# Config
 # path to pidfile here:
-my $pid = '[% pid_file %]';
+my $PID 			= '[% pid_file %]';
+# start command here:
+my $START_COMMAND 	= '[% start_cmd %]';
+# EXACT process name here:
+my $PROCESS_NAME 	= '[% process_name %]';
+my $USAGE 			= 'start|stop|usage|status';
 
+# Run
 my $runner = System::InitD::Runner->new(
-    usage               =>  'start|stop|usage|status',
+    usage               =>  $USAGE,
     # proces name here:
-    process_name        =>  '[% process_name %]',
+    process_name        =>  $PROCESS_NAME,
     # start cmd here
-    start               =>  '[% start_cmd %]',
+    start               =>  $START_COMMAND,
     restart_timeout     =>  5,
-    pid_file            =>  $pid,
+    pid_file            =>  $PID,
 );
 
 $runner->run();
