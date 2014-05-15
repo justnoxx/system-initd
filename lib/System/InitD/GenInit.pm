@@ -17,13 +17,19 @@ sub run {
 
     $self->parse_args();
     
-    if (lc $self->{options}->{os} eq 'debian') {
-        require System::InitD::Debian;
-        System::InitD::Debian::generate($self->{options});
-    }
-    else {
-        croak 'Unknown OS';
-    }
+    eval {
+        my $os = ucfirst lc $self->{options}->{os};
+
+        my $module = 'System::InitD' . '::' . $os;
+
+        (my $file = $module) =~ s|::|/|g;
+        require $file . '.pm';
+        $module->import();
+        $module->generate($self->{options});
+        1;
+    } or do {
+        croak "Unknown OS: $@";
+    };
 
     1;
 };
@@ -33,8 +39,12 @@ sub parse_args {
     my $self = shift;
 
     my $opts = $self->{options} = {
-        author  =>  getlogin,
-        os      =>  'debian',
+        author          =>  getlogin,
+        os              =>  'debian',
+        process_name    =>  '',
+        start_cmd       =>  '',
+        pid_file        =>  '',
+        target          =>  '',
     };
 
     GetOptions(
