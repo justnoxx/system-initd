@@ -44,6 +44,7 @@ sub parse_args {
         'pid-file=s'      =>  \$opts->{pid_file},
         'pid_file=s'      =>  \$opts->{pid_file},
         'process_name=s'  =>  \$opts->{process_name},
+        'process-name=s'  =>  \$opts->{process_name},
         'start_cmd=s'     =>  \$opts->{start_cmd},
         'start-cmd=s'     =>  \$opts->{start_cmd},
     );
