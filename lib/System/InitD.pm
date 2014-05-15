@@ -7,9 +7,14 @@ System::InitD
 =head1 DESCRIPTION
 
 Набор решений для работы и построения init.d скриптов под разные ОС.
-Подробное описание в процессе
-Changelog внизу
 
+Для более подробного описания geninit:
+
+	perldoc geninit
+
+Для подробного описания System::InitD::Runner и как его использовать:
+
+	perldoc System::InitD::Runner
 
 =head1 CHANGES
 
