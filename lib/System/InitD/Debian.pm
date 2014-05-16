@@ -5,6 +5,7 @@ use parent qw/System::InitD::Base/;
 use strict;
 use warnings;
 
+use Carp;
 use Template;
 use File::ShareDir qw/dist_file/;
 
@@ -12,7 +13,14 @@ use constant TEMPLATE => 'debian.tt';
 
 
 sub generate {
+    if ( !ref $_[0] && $_[0] eq __PACKAGE__ ) {
+        shift;
+    }
+    else {
+        croak 'Bad params';
+    }
     my ($options) = @_;
+
     my $generator = __PACKAGE__->new($options);
 
     my $data_location = dist_file('System-InitD', TEMPLATE);
