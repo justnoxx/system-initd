@@ -28,7 +28,7 @@ use System::InitD::Runner;
 # path to pidfile here:
 my $PID             = '[% pid_file %]';
 # start command here:
-my $START_COMMAND   = '[% start_cmd %]';
+my $START_COMMAND   = "[% start_cmd %]";
 # EXACT process name here:
 my $PROCESS_NAME    = '[% process_name %]';
 my $USAGE           = 'start|stop|usage|status';
