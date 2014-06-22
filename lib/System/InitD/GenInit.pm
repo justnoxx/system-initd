@@ -5,6 +5,7 @@ use warnings;
 use Getopt::Long;
 use Carp;
 
+
 sub new {
     my $class = shift;
 
@@ -20,7 +21,7 @@ sub run {
     eval {
         my $os = ucfirst lc $self->{options}->{os};
 
-        my $module = 'System::InitD' . '::' . $os;
+        my $module = 'System::InitD::OS' . '::' . $os;
 
         (my $file = $module) =~ s|::|/|g;
         require $file . '.pm';
@@ -45,18 +46,24 @@ sub parse_args {
         start_cmd       =>  '',
         pid_file        =>  '',
         target          =>  '',
+        provides        =>  '',
+        service         =>  'system_initd_script',
+        description     =>  '',
     };
 
     GetOptions(
-        'os=s'            =>  \$opts->{os},
-        'target=s'        =>  \$opts->{target},
-        "author=s"        =>  \$opts->{author},
-        'pid-file=s'      =>  \$opts->{pid_file},
-        'pid_file=s'      =>  \$opts->{pid_file},
-        'process_name=s'  =>  \$opts->{process_name},
-        'process-name=s'  =>  \$opts->{process_name},
-        'start_cmd=s'     =>  \$opts->{start_cmd},
-        'start-cmd=s'     =>  \$opts->{start_cmd},
+        'os=s'              =>    \$opts->{os},
+        'target=s'          =>    \$opts->{target},
+        "author=s"          =>    \$opts->{author},
+        'pid-file=s'        =>    \$opts->{pid_file},
+        'pid_file=s'        =>    \$opts->{pid_file},
+        'process_name=s'    =>    \$opts->{process_name},
+        'process-name=s'    =>    \$opts->{process_name},
+        'start_cmd=s'       =>    \$opts->{start_cmd},
+        'start-cmd=s'       =>    \$opts->{start_cmd},
+        'provides=s'        =>    \$opts->{provides},
+        'service=s'         =>    \$opts->{service},
+        'description=s'     =>    \$opts->{description},
     );
 
     if (scalar @ARGV == 1 && !$self->{options}->{target}) {

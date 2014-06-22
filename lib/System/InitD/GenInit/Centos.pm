@@ -1,4 +1,4 @@
-package System::InitD::Debian;
+package System::InitD::GenInit::Centos;
 
 use parent qw/System::InitD::Base/;
 
@@ -9,7 +9,7 @@ use Carp;
 use Template;
 use File::ShareDir qw/dist_file/;
 
-use constant TEMPLATE => 'debian.tt';
+use constant TEMPLATE => 'centos.tt';
 
 
 sub generate {
