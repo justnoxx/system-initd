@@ -24,6 +24,7 @@ no warnings qw/once/;
 use Carp;
 use System::Process;
 use POSIX;
+use Time::HiRes;
 
 use System::InitD::Const;
 use System::InitD::Base;
@@ -176,8 +177,8 @@ sub restart {
 
     $self->stop();
 
-    if (my $t = $self->{_args}->{restart_timeout}) {
-        sleep $t;
+    while ($self->is_alive()) {
+        Time::HiRes::usleep(1000);
     }
 
     $self->start();

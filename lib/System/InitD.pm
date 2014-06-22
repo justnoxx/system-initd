@@ -18,6 +18,10 @@ System::InitD
 
 =head1 CHANGES
 
+B<1.06>
+
+ - Существенно ускорен restart, за счет Time::HiRes::usleep.
+
 B<1.05>
 
  - Namespace для OS-компонентов генератора изменен на System::InitD::GenInit::$OSname
@@ -60,7 +64,7 @@ use warnings;
 
 use System::InitD::Runner;
 
-our $VERSION = 1.05;
+our $VERSION = 1.06;
 
 1;
 
