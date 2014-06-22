@@ -60,7 +60,7 @@ use warnings;
 
 use System::InitD::Runner;
 
-our $VERSION = 1.03;
+our $VERSION = 1.05;
 
 1;
 

@@ -21,7 +21,7 @@ sub run {
     eval {
         my $os = ucfirst lc $self->{options}->{os};
 
-        my $module = 'System::InitD::OS' . '::' . $os;
+        my $module = 'System::InitD::GenInit' . '::' . $os;
 
         (my $file = $module) =~ s|::|/|g;
         require $file . '.pm';
