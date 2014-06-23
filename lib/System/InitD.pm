@@ -18,6 +18,10 @@ System::InitD
 
 =head1 CHANGES
 
+B<1.07>
+
+ - Пофикшен System::InitD::Runner, теперь не требует старых зависимостей.
+
 B<1.06>
 
  - Существенно ускорен restart, за счет Time::HiRes::usleep.
@@ -64,7 +68,7 @@ use warnings;
 
 use System::InitD::Runner;
 
-our $VERSION = 1.06;
+our $VERSION = 1.07;
 
 1;
 

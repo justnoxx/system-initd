@@ -29,7 +29,6 @@ use Time::HiRes;
 use System::InitD::Const;
 use System::InitD::Base;
 use System::InitD::Const;
-use System::InitD::Debian;
 
 =over
 
