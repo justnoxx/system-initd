@@ -18,6 +18,10 @@ System::InitD
 
 =head1 CHANGES
 
+B<1.08>
+
+ - Исправлен хардкод в шаблонах для Debian
+
 B<1.07>
 
  - Пофикшен System::InitD::Runner, теперь не требует старых зависимостей.
@@ -68,7 +72,7 @@ use warnings;
 
 use System::InitD::Runner;
 
-our $VERSION = 1.07;
+our $VERSION = 1.08;
 
 1;
 
