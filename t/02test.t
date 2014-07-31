@@ -24,7 +24,7 @@ else {
 use_ok 'System::InitD' or BAIL_OUT "Can't use System::InitD";
 
 # 2: use System::InitD::Debian
-use_ok 'System::InitD::Debian' or BAIL_OUT "Can't use System::InitD::Debian";
+use_ok 'System::InitD::GenInit::Debian' or BAIL_OUT "Can't use System::InitD::GenInit::Debian";
 
 my $PROCESS_NAME   =  'SYSTEM_INITD_TEST_PROCESS';
 my $TEMP_DIR       =  $cwd;
@@ -51,9 +51,9 @@ my $options = {
     process_name    =>  $PROCESS_NAME,
 };
 
-require System::InitD::Debian;
-import System::InitD::Debian;
-System::InitD::Debian::generate($options);
+require System::InitD::GenInit::Debian;
+import System::InitD::GenInit::Debian;
+System::InitD::GenInit::Debian->generate($options);
 chmod 0755, $INIT_SCRIPT;
 
 # 3:
@@ -72,7 +72,9 @@ sleep 2;
 ok -e $PID_FILE && -s $PID_FILE, 'PID file exists and not empty';
 
 # 7:
-is `$INIT_SCRIPT status`, $RUNNING, 'Running';
+my $res = `$INIT_SCRIPT status`;
+
+is $res, $RUNNING, 'Running';
 
 system "$INIT_SCRIPT", 'stop';
 
@@ -85,6 +87,7 @@ __DATA__
 #!/usr/bin/env perl
 use strict;
 use warnings;
+fork and exit;
 $0 = '%s';
 open PID, '>', '%s';
 print PID $$;
@@ -94,11 +97,10 @@ eval {
     local $SIG{ALRM} = sub {
         die "ALARM!";
     };
-    alarm 10;
+    alarm 20;
     while (1) {
         sleep 1;
     }
-
 } or do {
     die "Done";
 };

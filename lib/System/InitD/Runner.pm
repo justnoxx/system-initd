@@ -148,6 +148,7 @@ sub run {
 sub start {
     my $self = shift;
 
+    $self->before_start();
     # TODO: Add command check
     # my $command = $self->{_commands}->{start}->{cmd};
     my @command = @{$self->{_commands}->{start}};
@@ -156,6 +157,7 @@ sub start {
         return;
     }
     system(@command);
+    $self->after_start();
     return 1;
 }
 
@@ -163,10 +165,13 @@ sub start {
 sub stop {
     my $self = shift;
 
+    $self->before_stop();
     if ($self->{pid}) {
         my $signal = $self->{kill_signal} // POSIX::SIGTERM;
         $self->{pid}->kill($signal);
     }
+
+    $self->after_stop();
     return 1;
 }
 
@@ -249,6 +254,12 @@ sub load {
     return 1;
 }
 
+
+sub before_start {1;}
+sub after_start {1;}
+
+sub before_stop {1;}
+sub after_stop {1;}
 1;
 
 __END__

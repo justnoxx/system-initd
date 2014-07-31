@@ -17,7 +17,16 @@ System::InitD
 	perldoc System::InitD::Runner
 
 =head1 CHANGES
+B<1.09>
 
+ - Добавлены хуки для более гибкой настройки инит скриптов. Доступные следующие хуки:
+  - before_start
+  - after_start
+  - before_stop
+  - after_stop
+
+ - Пофикшены тесты
+ 
 B<1.08>
 
  - Исправлен хардкод в шаблонах для Debian
@@ -72,7 +81,7 @@ use warnings;
 
 use System::InitD::Runner;
 
-our $VERSION = 1.08;
+our $VERSION = 1.09;
 
 1;
 

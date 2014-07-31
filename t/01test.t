@@ -55,8 +55,8 @@ my $options = {
     pid_file     => $fpid,
 };
 
-require System::InitD::Debian;
-System::InitD::Debian::generate($options);
+require System::InitD::GenInit::Debian;
+System::InitD::GenInit::Debian->generate($options);
 
 #
 # check whether daemon currently is not running
@@ -106,6 +106,7 @@ __DATA__
 use AnyEvent;
 use AnyEvent::Socket;
 
+fork && exit;
 $0 = 'UNIQ';
 
 my $cv = AE::cv;
