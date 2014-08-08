@@ -6,7 +6,6 @@ use strict;
 use warnings;
 
 use Carp;
-use Template;
 use File::ShareDir qw/dist_file/;
 
 use constant TEMPLATE => 'debian.tt';

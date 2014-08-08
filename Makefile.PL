@@ -16,17 +16,20 @@ WriteMakefile(
     EXE_FILES        => ['script/geninit'],
     MIN_PERL_VERSION => 5.006,
     CONFIGURE_REQUIRES => {
-        'ExtUtils::MakeMaker' => 0,
+        'ExtUtils::MakeMaker'       => 0,
+        'File::ShareDir'            => 0,
+        'File::ShareDir::Install'   => 0,
     },  
     BUILD_REQUIRES => {
         'Test::More' => 0,
     },  
-    # PREREQ_PM => {
-    #     #'ABC'              => 1.6,
-    #     #'Foo::Bar::Module' => 5.0401,
-    # },
-    # dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
-    # clean => { FILES => 'Data-Dir-*' },
+    PREREQ_PM => {
+        'File::ShareDir' => 0,
+        'File::ShareDir::Install' => 0,
+        #'Foo::Bar::Module' => 5.0401,
+    },
+    dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
+    clean => { FILES => 'Data-Dir-*' },
     "test" => {
         "TESTS" => "t/*.t"
     }

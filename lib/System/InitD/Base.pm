@@ -3,10 +3,9 @@ package System::InitD::Base;
 use strict;
 use warnings;
 
-use Template;
+use System::InitD::Template;
 
 use Carp;
-use Data::Dumper;
 
 sub new {
     my ($class, $options) = @_;
@@ -56,9 +55,12 @@ sub forward_render_params {
 sub write_script {
     my ($self, $template) = @_;
 
-    my $tt = Template->new({ABSOLUTE=>1}) || croak "$Template::ERROR\n";
     my $script;
-    $tt->process($template, $self->_rp(), \$script) || croak $tt->error();
+    $script = System::InitD::Template::render(
+        file            =>  $template,
+        render_params   =>  $self->_rp(),
+    );
+    # $tt->process($template, $self->_rp(), \$script) || croak $tt->error();
 
     my $target = $self->{_options}->{target};
     croak "Missing target" unless $target;

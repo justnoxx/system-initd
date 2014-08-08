@@ -17,6 +17,16 @@ System::InitD
 	perldoc System::InitD::Runner
 
 =head1 CHANGES
+
+B<1.11>
+
+	Выпилен Template, теперь система работает на своем микродвижке шаблонов - 
+	System::InitD::Template.
+
+B<1.10>
+
+	Промежуточный релиз, в прод не ушел
+
 B<1.09>
 
  - Добавлены хуки для более гибкой настройки инит скриптов. Доступные следующие хуки:
@@ -81,7 +91,7 @@ use warnings;
 
 use System::InitD::Runner;
 
-our $VERSION = 1.09;
+our $VERSION = 1.11;
 
 1;
 
