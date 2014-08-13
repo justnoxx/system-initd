@@ -15,13 +15,13 @@ __END__
 
 =head1 NAME
 
-geninit
+geninitd
 
 =head1 DESCRIPTION
 
-Простая утилита для генерации файлов для init.d.
+Simple utility for init.d scripts creation.
 
-В результате работы генерирует скрипты примерно следующего вида:
+It produces scripts like:
 
     #!/usr/bin/env perl
     # created by: noxx
@@ -78,22 +78,24 @@ geninit
 =head1 SYNOPSIS
 
     B<--os>
-        Операционная система, для которой генерируется init скрипт
+        Operating system. Script will be generated for it. Debian format by default.
 
     B<--author>
-        Автор скрипта. Используется для генерации блока описания
+        Script's author, used for description.
 
     B<--target>
-        Файл, куда будет записан init скрипт
+        Target file. If not, last parameter,
 
     B<--pid-file> B<--pid_file>
-        Пид файл скрипта, который используется для мониторинга
+        Pid file of script, used for monitoring.
 
     B<--process-name> B<--process_name>
-        I<Точное> имя процесса скрипта. Используется для мониторинга и контроля скрипта.
+        B<Exact> process name in ps of script. Used for monitoring and manipulation.
 
     B<--start-cmd> B<--start_cmd>
-        Команда, которой скрипт запускается
+        Start command
 
     B<--service>
-        Название скрипта, который будет запускаться, например, my_cool_daemon
+        Service name. For example, my_cool_daemon.
+
+=cut
