@@ -10,7 +10,7 @@ WriteMakefile(
     NAME             => 'System::InitD',
     AUTHOR           => 'Shamatrin D.',
     VERSION_FROM     => 'lib/System/InitD.pm',
-    ABSTRACT_FROM    => 'lib/System/InitD.pm',
+    # ABSTRACT_FROM    => 'lib/System/InitD.pm',
     LICENSE          => 'perl',
     PL_FILES         => {},
     EXE_FILES        => ['script/geninitd'],
