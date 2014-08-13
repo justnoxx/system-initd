@@ -60,7 +60,6 @@ sub write_script {
         file            =>  $template,
         render_params   =>  $self->_rp(),
     );
-    # $tt->process($template, $self->_rp(), \$script) || croak $tt->error();
 
     my $target = $self->{_options}->{target};
     croak "Missing target" unless $target;

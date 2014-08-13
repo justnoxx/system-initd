@@ -6,83 +6,19 @@ System::InitD
 
 =head1 DESCRIPTION
 
-Набор решений для работы и построения init.d скриптов под разные ОС.
+Simple and cool toolkit for init.d scripts creation under linux systems. This distrubution includes toolkit itself
+and generator tool, geninitd, which generates init.d perl script sceleton.
 
-Для более подробного описания geninit:
+You can see perldoc for geninitd
 
-	perldoc geninit
+    perldoc geninitd
 
-Для подробного описания System::InitD::Runner и как его использовать:
+Also, for available System::InitD API see perldoc for System::InitD::Runner
 
-	perldoc System::InitD::Runner
+=head1 HISTORY
 
-=head1 CHANGES
-
-B<1.11>
-
-	Выпилен Template, теперь система работает на своем микродвижке шаблонов - 
-	System::InitD::Template.
-
-B<1.10>
-
-	Промежуточный релиз, в прод не ушел
-
-B<1.09>
-
- - Добавлены хуки для более гибкой настройки инит скриптов. Доступные следующие хуки:
-  - before_start
-  - after_start
-  - before_stop
-  - after_stop
-
- - Пофикшены тесты
- 
-B<1.08>
-
- - Исправлен хардкод в шаблонах для Debian
-
-B<1.07>
-
- - Пофикшен System::InitD::Runner, теперь не требует старых зависимостей.
-
-B<1.06>
-
- - Существенно ускорен restart, за счет Time::HiRes::usleep.
-
-B<1.05>
-
- - Namespace для OS-компонентов генератора изменен на System::InitD::GenInit::$OSname
- - Добавлен модуль для генерации CentOS (System::InitD::GenInit::Centos)скриптов, использовать
- с флагом --os centos при генерации.
- - Внесены исправления в шаблон debian.tt.
- - Добавлен новый шаблон - centos.tt, см. выше.
-
-B<1.04>
-
- - Исправлен баг с кавычками в start команде, ОБЯЗАТЕЛЬНО обновить до этой версии, если 1.03.
-
-B<1.03>
-
- - Переделан механизм System::InitD, теперь он подгружает в процессе генерации инит скрипта соответствующий
- модуль на лету.
- - Для расширения функционала достаточно добавить новый модуль. Старый код править теперь необходимости нет.
-
-B<1.02>
-
- - Правки шаблона debian.tt
-
-B<1.01>
-
- - Шаблон приведен в более удобочитаемый вид
-
-B<1.0>
-
- - Параметр start теперь больше не hashref, теперь это строка. Где команда, а где
- аргументы System::InitD разберется сам.
-
-B<0.9>
-
- - Интегрирован System::Process
+One day I tried to improve existing init.d bash script of some project and it was very painful.
+I love perl, so I decided to create some useful toolkit for init.d scripts written in perl.
 
 =cut
 
@@ -91,7 +27,8 @@ use warnings;
 
 use System::InitD::Runner;
 
-our $VERSION = 1.11;
+our $VERSION = 1.13;
+our $ABSTRACT = "Toolkit for perl init.d manipulation";
 
 1;
 

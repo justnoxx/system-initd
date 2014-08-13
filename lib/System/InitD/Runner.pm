@@ -91,7 +91,7 @@ sub new {
         $self->{_text}->{usage} = $params{usage};
     }
 
-    # Команда это теперь массив, для system
+    # Command is array from now, for system
     @{$self->{_commands}->{start}} = split /\s+/, $params{start};
 
     if ($params{restart_timeout}) {
@@ -150,7 +150,6 @@ sub start {
 
     $self->before_start();
     # TODO: Add command check
-    # my $command = $self->{_commands}->{start}->{cmd};
     my @command = @{$self->{_commands}->{start}};
     if ($self->is_alive()) {
         print DAEMON_ALREADY_RUNNING;
@@ -260,6 +259,8 @@ sub after_start {1;}
 
 sub before_stop {1;}
 sub after_stop {1;}
+
+
 1;
 
 __END__

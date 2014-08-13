@@ -1,128 +1,108 @@
 #!/usr/bin/env perl
-
-# author: Serguei Okladnikov
-
 use strict;
 use warnings;
 
-use Test::More tests => 5;
+use Data::Dumper;
+use File::Temp qw/tempfile/;
+use Cwd;
 
-use File::Temp qw/ tempfile /;
-use AnyEvent;
-use AnyEvent::Socket;
+use Test::More tests => 7;
 
-use constant RUNNING => 'Daemon already running';
-use constant STOPPED => 'Daemon is not running';
-
-
-my $uniq = 'uid_test_str';
-my $pid = $$;
-my $res;
-
-BEGIN { use_ok( "System::InitD" ) }
-
-diag( "System Process $System::InitD::VERSION" );
-
-my $data;
-
-{
-    local $/ = undef;
-    $data = <DATA>;
+my $cwd = getcwd;
+if ($cwd =~ m/t\/?$/s) {
+    my @cwd = split '\/', $cwd;
+    $cwd[$#cwd] = 'tmp';
+    $cwd = join '/', @cwd;
+}
+else {
+    $cwd .= '/tmp';
 }
 
-my ( undef, $init ) = tempfile( 'tmp_init_XXXXXX', TMPDIR => 1, OPEN => 0 );
-my ( undef, $exec ) = tempfile( 'tmp_exec_XXXXXX', TMPDIR => 1, OPEN => 0 );
-my ( undef, $sock ) = tempfile( 'tmp_sock_XXXXXX', TMPDIR => 1, OPEN => 0 );
-my ( undef, $fpid ) = tempfile( 'tmp_fpid_XXXXXX', TMPDIR => 1, OPEN => 0 );
-    
-$data =~ s|HOST|unix/|m;
-$data =~ s|PORT|$sock|m;
-$data =~ s|FPID|$fpid|m;
-$data =~ s|UNIQ|$uniq|m;
 
-open FH, ">$exec";
-print FH $data;
-close FH;
+# 1: use System::InitD
+use_ok 'System::InitD' or BAIL_OUT "Can't use System::InitD";
 
-chmod 0755, $exec;
+# 2: use System::InitD::Debian
+use_ok 'System::InitD::GenInit::Debian' or BAIL_OUT "Can't use System::InitD::GenInit::Debian";
+
+my $PROCESS_NAME   =  'SYSTEM_INITD_TEST_PROCESS';
+my $TEMP_DIR       =  $cwd;
+
+my $DAEMON_FILE    =  $cwd . '/daemon';
+my $INIT_SCRIPT    =  $cwd . '/init_script';
+my $PID_FILE       =  $cwd . '/test.pid';
+my $RUNNING        =  'Daemon already running'; 
+my $NOT_RUNNING    =  'Daemon is not running';
+
+my $script = sprintf join ('', <DATA>), $PROCESS_NAME, $PID_FILE;
+
+open DAEMON, '>', $DAEMON_FILE or BAIL_OUT "ERROR $!";;
+chmod 0755, $DAEMON_FILE;
+print DAEMON $script or BAIL_OUT "ERROR $!";
+close DAEMON;
 
 
 my $options = {
-    os           => 'debian',
-    target       => $init,
-    process_name => $uniq,
-    start_cmd    => "$exec 2>&1 &",
-    pid_file     => $fpid,
+    os              =>  'debian',
+    target          =>  $INIT_SCRIPT,
+    pid_file        =>  $PID_FILE,
+    start_cmd       =>  $DAEMON_FILE . ' &',
+    process_name    =>  $PROCESS_NAME,
 };
 
 require System::InitD::GenInit::Debian;
+import System::InitD::GenInit::Debian;
 System::InitD::GenInit::Debian->generate($options);
+chmod 0755, $INIT_SCRIPT;
 
-#
-# check whether daemon currently is not running
-#
-$res = `$init status`; chomp $res;
-is $res, STOPPED, 'must be not running';
+# 3:
+ok -e $DAEMON_FILE && -s $DAEMON_FILE, 'Daemon file exists and not empty';
 
-system "$init start"; sleep 2;
+# 4:
+ok -e $INIT_SCRIPT && -s $INIT_SCRIPT, 'Init script exists and not empty';
 
-#
-# check daemon must be running
-#
-$res = `$init status`; chomp $res;
-is $res, RUNNING, 'must be running';
+# 5:
+is `$INIT_SCRIPT status`, $NOT_RUNNING, 'Not running';
 
-#
-# check whether daemon really worked
-#
-my $cv = AE::cv;
-tcp_connect "unix/", $sock, sub {
-    my ($fh) = @_;
-    ok $fh, "server is really worked";
-    $cv->send;
-};
-$cv->recv;
+system $INIT_SCRIPT, 'start';
+sleep 2;
 
-system "$init stop"; sleep 2;
+# 6:
+ok -e $PID_FILE && -s $PID_FILE, 'PID file exists and not empty';
 
-#
-# check that daemon must be shutdown
-#
-$res = `$init status`; chomp $res;
-is $res, STOPPED, 'must be not running';
+# 7:
+my $res = `$INIT_SCRIPT status`;
 
-unlink $init;
-unlink $exec;
-unlink $sock;
-unlink $fpid;
+is $res, $RUNNING, 'Running';
 
+system "$INIT_SCRIPT", 'stop';
+
+unlink $DAEMON_FILE;
+unlink $INIT_SCRIPT;
+unlink $PID_FILE;
 
 done_testing();
 
-
 __DATA__
 #!/usr/bin/env perl
+use strict;
+use warnings;
+fork and exit;
+$0 = '%s';
+open PID, '>', '%s';
+print PID $$;
+close PID;
 
-use AnyEvent;
-use AnyEvent::Socket;
-
-fork && exit;
-$0 = 'UNIQ';
-
-my $cv = AE::cv;
-
-my $strm = AE::signal TERM => sub{ $cv->send; };
-my $sint = AE::signal INT  => sub{ $cv->send; };
-my $shup = AE::signal HUP  => sub{};
-
-my $fpid = 'FPID';
-open FH, ">$fpid";
-print FH $$;
-close FH;
-
-tcp_server 'HOST', 'PORT', sub {
-    my ($fh, $host, $port) = @_;
-    syswrite $fh, "The internet is full. Go away!\015\012";
+eval {
+    local $SIG{ALRM} = sub {
+        die "ALARM!";
+    };
+    alarm 20;
+    while (1) {
+        sleep 1;
+    }
+} or do {
+    die "Done";
 };
 
-$cv->recv;
+1;
