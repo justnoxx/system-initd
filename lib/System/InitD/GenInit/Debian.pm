@@ -8,7 +8,7 @@ use warnings;
 use Carp;
 use File::ShareDir qw/dist_file/;
 
-use constant TEMPLATE => 'debian.tt';
+use constant TEMPLATE => 'debian.tpl';
 
 
 sub generate {

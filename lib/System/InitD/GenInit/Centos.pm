@@ -9,7 +9,7 @@ use Carp;
 
 use File::ShareDir qw/dist_file/;
 
-use constant TEMPLATE => 'centos.tt';
+use constant TEMPLATE => 'centos.tpl';
 
 
 sub generate {

@@ -1,3 +1,9 @@
+1.15
+
+    POD fixed.
+    TEST_REQUIRES section of MakeMaker has been added.
+    Template files renamed from .tt to .tpl.
+
 1.14
 
     POD fixed.

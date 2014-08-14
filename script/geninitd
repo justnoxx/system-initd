@@ -77,25 +77,31 @@ It produces scripts like:
 
 =head1 SYNOPSIS
 
-    B<--os>
-        Operating system. Script will be generated for it. Debian format by default.
+B<--os>
 
-    B<--author>
-        Script's author, used for description.
+Operating system. Script will be generated for it. Debian format by default.
 
-    B<--target>
-        Target file. If not, last parameter,
+B<--author>
 
-    B<--pid-file> B<--pid_file>
-        Pid file of script, used for monitoring.
+Script's author, used for description.
 
-    B<--process-name> B<--process_name>
-        B<Exact> process name in ps of script. Used for monitoring and manipulation.
+B<--target>
 
-    B<--start-cmd> B<--start_cmd>
-        Start command
+Target file. If not, last parameter,
 
-    B<--service>
-        Service name. For example, my_cool_daemon.
+B<--pid-file> B<--pid_file>
+
+Pid file of script, used for monitoring.
+
+B<--process-name> B<--process_name>
+B<Exact> process name in ps of script. Used for monitoring and manipulation.
+
+B<--start-cmd> B<--start_cmd>
+
+Start command
+
+B<--service>
+
+Service name. For example, my_cool_daemon.
 
 =cut
