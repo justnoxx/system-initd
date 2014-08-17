@@ -15,14 +15,6 @@ WriteMakefile(
     PL_FILES         => {},
     EXE_FILES        => ['script/geninitd'],
     MIN_PERL_VERSION => 5.006,
-    CONFIGURE_REQUIRES => {
-        'ExtUtils::MakeMaker'       =>  0,
-        'File::ShareDir'            =>  0,
-        'File::ShareDir::Install'   =>  0,
-        'System::Process'           =>  0.15,
-        'POSIX'                     =>  0,
-        'Time::HiRes'               =>  0,
-    },  
     BUILD_REQUIRES => {
         'Test::More'                =>  0,
         'ExtUtils::MakeMaker'       =>  0,

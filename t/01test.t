@@ -34,8 +34,7 @@ my $PID_FILE       =  $cwd . '/test.pid';
 my $RUNNING        =  'Daemon already running'; 
 my $NOT_RUNNING    =  'Daemon is not running';
 
-my $script = sprintf join ('', <DATA>), $PROCESS_NAME, $PID_FILE;
-
+my $script = sprintf join ('', <DATA>), $^X, $PROCESS_NAME, $PID_FILE;
 open DAEMON, '>', $DAEMON_FILE or BAIL_OUT "ERROR $!";;
 chmod 0755, $DAEMON_FILE;
 print DAEMON $script or BAIL_OUT "ERROR $!";
@@ -84,7 +83,7 @@ unlink $PID_FILE;
 done_testing();
 
 __DATA__
-#!/usr/bin/env perl
+#!%s
 use strict;
 use warnings;
 fork and exit;
