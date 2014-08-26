@@ -112,6 +112,14 @@ sub new {
         $self->{_args}->{process_name} = $params{process_name};
     }
 
+    # user and group params, added for right validation
+    if ($params{user}) {
+        $self->{_args}->{user} = $params{user};
+    }
+    if ($params{group}) {
+        $self->{_args}->{group} = $params{group};
+    }
+
     bless $self, $class;
     return $self;
 }
@@ -163,6 +171,8 @@ sub start {
 
 sub stop {
     my $self = shift;
+
+    $self->confirm_permissions() or croak "Incorrect permissions. Can't kill";
 
     $self->before_stop();
     if ($self->{pid}) {
@@ -253,6 +263,26 @@ sub load {
     return 1;
 }
 
+
+sub confirm_permissions {
+    my ($self) = @_;
+
+    unless ($self->{_args}->{user}) {
+        return 1;
+    }
+
+    unless ($self->{pid}) {
+        return 1;
+    }
+
+    if ($self->{_args}->{user} ne $self->{pid}->user()) {
+        carp "Expected: $self->{_args}->{user}, but got: " . $self->{pid}->user()
+            . " looks like very strange. Execution was aborted.";
+        return 0;
+    }
+
+    return 1;
+}
 
 sub before_start {1;}
 sub after_start {1;}

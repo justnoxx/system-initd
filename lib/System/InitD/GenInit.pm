@@ -57,6 +57,7 @@ sub parse_args {
         "author=s"          =>    \$opts->{author},
         'pid-file=s'        =>    \$opts->{pid_file},
         'pid_file=s'        =>    \$opts->{pid_file},
+        'pidfile=s'         =>    \$opts->{pid_file},
         'process_name=s'    =>    \$opts->{process_name},
         'process-name=s'    =>    \$opts->{process_name},
         'start_cmd=s'       =>    \$opts->{start_cmd},
@@ -64,6 +65,7 @@ sub parse_args {
         'provides=s'        =>    \$opts->{provides},
         'service=s'         =>    \$opts->{service},
         'description=s'     =>    \$opts->{description},
+        'user'              =>    \$opts->{user},
     );
 
     if (scalar @ARGV == 1 && !$self->{options}->{target}) {
