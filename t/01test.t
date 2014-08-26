@@ -40,6 +40,8 @@ chmod 0755, $DAEMON_FILE;
 print DAEMON $script or BAIL_OUT "ERROR $!";
 close DAEMON;
 
+my $user = getpwuid($<);
+$user ||= '';
 
 my $options = {
     os              =>  'debian',
@@ -47,6 +49,7 @@ my $options = {
     pid_file        =>  $PID_FILE,
     start_cmd       =>  $DAEMON_FILE . ' &',
     process_name    =>  $PROCESS_NAME,
+    user            =>  $user,
 };
 
 require System::InitD::GenInit::Debian;

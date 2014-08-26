@@ -267,11 +267,15 @@ sub load {
 sub confirm_permissions {
     my ($self) = @_;
 
-    unless ($self->{_args}->{user}) {
+    unless ($self->{pid}) {
+        carp 'Usage of System::InitD without pidfile is deprecated ' .
+            'and will be forbidden in the future releases';
         return 1;
     }
 
-    unless ($self->{pid}) {
+    unless ($self->{_args}->{user}) {
+        carp 'Usage of System::InitD without specified user is extremely insecure ' .
+            'and will be forbidden in the future releases';
         return 1;
     }
 

@@ -33,6 +33,7 @@ my $runner = System::InitD::Runner->new(
     start               =>  $START_COMMAND,
     restart_timeout     =>  5,
     pid_file            =>  $PID,
+    user                =>  '[% user %]',
 );
 
 $runner->run();
