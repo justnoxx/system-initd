@@ -65,7 +65,7 @@ sub parse_args {
         'provides=s'        =>    \$opts->{provides},
         'service=s'         =>    \$opts->{service},
         'description=s'     =>    \$opts->{description},
-        'user'              =>    \$opts->{user},
+        'user=s'            =>    \$opts->{user},
     );
 
     if (scalar @ARGV == 1 && !$self->{options}->{target}) {
