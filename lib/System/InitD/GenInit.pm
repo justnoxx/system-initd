@@ -49,6 +49,7 @@ sub parse_args {
         provides        =>  '',
         service         =>  'system_initd_script',
         description     =>  '',
+        user            =>  '',
     };
 
     GetOptions(

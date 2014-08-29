@@ -42,7 +42,8 @@ sub render {
     }
 
     my $render_params = $params{render_params};
-
+    
+    $render_params->{PERL} = $^X;
     my @template;
 
     if ($params{file}) {
@@ -54,11 +55,10 @@ sub render {
     else {
         @template = split "\n", $params{text};
     }
-
     local *{System::InitD::Template::parse} = sub {
         my $string = shift;
-
         for my $key (keys %$render_params) {
+            next unless $render_params->{$key};
             $string =~ s/$ANCHOR->[0]\s*?$key\s*?$ANCHOR->[1]/$render_params->{$key}/gs;
         }
         my $template = "$ANCHOR->[0].*?$ANCHOR->[1]";

@@ -1,6 +1,17 @@
-1.17
+1.19
+    
+    Templates improved, from now for init.d scripts shebangs current interpreter
+    path will be used.
+    
+    CONFIGURE_REQUIRED section was fixed.
+
+1.18
 
     Added pid-replacement injection protection
+
+1.17
+
+    Developers release
 
 1.16
 

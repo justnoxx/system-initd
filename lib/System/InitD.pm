@@ -11,7 +11,7 @@ and generator tool, geninitd, which generates init.d perl script sceleton.
 
 You can see perldoc for geninitd
 
-    perldoc geninitd
+    perldoc geninit
 
 Also, for available System::InitD API see perldoc for System::InitD::Runner
 
@@ -27,7 +27,7 @@ use warnings;
 
 use System::InitD::Runner;
 
-our $VERSION = 1.18;
+our $VERSION = 1.19;
 our $ABSTRACT = "Toolkit for perl init.d manipulation";
 
 1;
