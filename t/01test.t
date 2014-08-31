@@ -18,7 +18,9 @@ else {
     $cwd .= '/tmp';
 }
 
-
+if (! -e $cwd) {
+    mkdir $cwd or BAIL_OUT "Can't create tmp directory";
+}
 # 1: use System::InitD
 use_ok 'System::InitD' or BAIL_OUT "Can't use System::InitD";
 
