@@ -6,11 +6,11 @@ use File::ShareDir::Install;
 
 install_share dist => 'share';
 
-WriteMakefile(
+my %make_params = (
     NAME             => 'System::InitD',
-    AUTHOR           => 'Shamatrin D.',
+    AUTHOR           => 'Shamatrin Dmitriy',
+    ABSTRACT         => 'Little framework for init.d scripts creation and manipulation.',
     VERSION_FROM     => 'lib/System/InitD.pm',
-    # ABSTRACT_FROM    => 'lib/System/InitD.pm',
     LICENSE          => 'perl',
     PL_FILES         => {},
     EXE_FILES        => ['script/geninitd'],
@@ -18,6 +18,7 @@ WriteMakefile(
     CONFIGURE_REQUIRES  => {
         'File::ShareDir'            =>  0,
         'File::ShareDir::Install'   =>  0,
+        'System::Process'           =>  0.15,
     },
     BUILD_REQUIRES => {
         'Test::More'                =>  0,
@@ -50,6 +51,22 @@ WriteMakefile(
         "TESTS" => "t/*.t"
     }
 );
+
+# if so, ExtUtils::MakeMaker supports META_MERGE tag
+if ($ExtUtils::MakeMaker::VERSION >= 6.46) {
+    $make_params{META_MERGE} = {
+        "meta-spec" => { version => 2 },
+        resources => {
+            repository => {
+                type    => 'git',
+                url     => 'https://github.com/justnoxx/system-initd',
+                web     => 'https://github.com/justnoxx/system-initd.git',
+            },
+        },
+    };
+}
+
+WriteMakefile(%make_params);
 
 package MY;
 use File::ShareDir::Install 'postamble';

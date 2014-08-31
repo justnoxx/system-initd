@@ -1,3 +1,9 @@
+1.20
+
+    Added manifest.
+    Added github links.
+    Makefile was improved.
+
 1.19
     
     Templates improved, from now for init.d scripts shebangs current interpreter
