@@ -267,7 +267,7 @@ sub load {
 sub confirm_permissions {
     my ($self) = @_;
 
-    unless ($self->{pid}) {
+    if (!exists $self->{pid}) {
         carp 'Usage of System::InitD without pidfile is deprecated ' .
             'and will be forbidden in the future releases';
         return 1;

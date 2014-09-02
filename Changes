@@ -1,3 +1,8 @@
+1.22
+
+    Fixed "deprecated" warning, when stop called while daemon is not running.
+    Makefile.PL fixed.
+
 1.21
     
     Test fixed.
