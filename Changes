@@ -1,3 +1,8 @@
+1.23
+
+    Fixed error 
+    "Can't call method "user" on an undefined value at /usr/local/share/perl/5.14.2/System/InitD/Runner.pm line 282." When restarting while daemon is not running.
+
 1.22
 
     Fixed "deprecated" warning, when stop called while daemon is not running.

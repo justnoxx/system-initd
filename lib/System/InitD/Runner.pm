@@ -279,6 +279,11 @@ sub confirm_permissions {
         return 1;
     }
 
+    # if no System::Process object, next check useless
+    unless ($self->{pid}) {
+        return 1;
+    }
+
     if ($self->{_args}->{user} ne $self->{pid}->user()) {
         carp "Expected: $self->{_args}->{user}, but got: " . $self->{pid}->user()
             . " looks like very strange. Execution was aborted.";
