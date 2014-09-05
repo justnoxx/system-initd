@@ -33,8 +33,8 @@ my $TEMP_DIR       =  $cwd;
 my $DAEMON_FILE    =  $cwd . '/daemon';
 my $INIT_SCRIPT    =  $cwd . '/init_script';
 my $PID_FILE       =  $cwd . '/test.pid';
-my $RUNNING        =  'Daemon already running'; 
-my $NOT_RUNNING    =  'Daemon is not running';
+my $RUNNING        =  "Daemon already running\n";
+my $NOT_RUNNING    =  "Daemon is not running\n";
 
 my $script = sprintf join ('', <DATA>), $^X, $PROCESS_NAME, $PID_FILE;
 open DAEMON, '>', $DAEMON_FILE or BAIL_OUT "ERROR $!";;

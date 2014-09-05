@@ -22,7 +22,7 @@ my $PID             = '[% pid_file %]';
 my $START_COMMAND   = "[% start_cmd %]";
 # EXACT process name here:
 my $PROCESS_NAME    = '[% process_name %]';
-my $USAGE           = 'start|stop|usage|status';
+my $USAGE           = 'start|stop|usage|status|info';
 
 # Run
 my $runner = System::InitD::Runner->new(

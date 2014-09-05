@@ -215,6 +215,26 @@ sub status {
 }
 
 
+sub info {
+    my $self = shift;
+
+    unless ($self->{pid}) {
+        print DAEMON_IS_NOT_RUNNING;
+        exit 0;
+    }
+
+    if ($self->is_alive()) {
+        my $p = $self->{pid};
+        printf "Daemon is running.\n\tPID: %s\n\tCommand: %s\n\tUser: %s\n",
+            $p->pid(), $p->command(), $p->user();
+    }
+    else {
+        print DAEMON_IS_NOT_RUNNING;
+    }
+
+    exit 0;
+
+}
 sub usage {
     my $self = shift;
 

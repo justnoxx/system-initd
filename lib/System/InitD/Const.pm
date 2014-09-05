@@ -22,8 +22,8 @@ our @EXPORT = qw/
     DAEMON_IS_NOT_RUNNING
 /;
 
-use constant DAEMON_ALREADY_RUNNING => "Daemon already running";
-use constant DAEMON_IS_NOT_RUNNING  => "Daemon is not running";
+use constant DAEMON_ALREADY_RUNNING => "Daemon already running\n";
+use constant DAEMON_IS_NOT_RUNNING  => "Daemon is not running\n";
 
 1;
 
