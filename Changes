@@ -1,3 +1,9 @@
+1.25
+
+    Added simple messages for start and stop commands.
+    Added constants for start, stop, started, stopped messages.
+    Added System::InitD::Const import in System/InitD.pm
+
 1.24
 
     Added newline to System::InitD messages.

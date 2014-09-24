@@ -155,7 +155,8 @@ sub run {
 
 sub start {
     my $self = shift;
-
+    
+    print STARTING;
     $self->before_start();
     # TODO: Add command check
     my @command = @{$self->{_commands}->{start}};
@@ -163,8 +164,19 @@ sub start {
         print DAEMON_ALREADY_RUNNING;
         return;
     }
-    system(@command);
+
+    my $code = system(@command);
+
     $self->after_start();
+
+    if ($code) {
+        $code = $code >> 8;
+        printf NOT_STARTED, $code;
+        return;
+    }
+
+    print STARTED;
+
     return 1;
 }
 
@@ -172,7 +184,11 @@ sub start {
 sub stop {
     my $self = shift;
 
-    $self->confirm_permissions() or croak "Incorrect permissions. Can't kill";
+    print STOPPING;
+    $self->confirm_permissions() or do {
+        print NOT_STOPPED;
+        croak "Incorrect permissions. Can't kill";
+    };
 
     $self->before_stop();
     if ($self->{pid}) {
@@ -181,6 +197,8 @@ sub stop {
     }
 
     $self->after_stop();
+
+    print STOPPED;
     return 1;
 }
 
