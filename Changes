@@ -1,3 +1,6 @@
+1.26
+    Added mandatory parameter: --provides. If omitted, geninitd will ask user for input.
+
 1.25
 
     Added simple messages for start and stop commands.
