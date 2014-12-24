@@ -28,7 +28,7 @@ use warnings;
 use System::InitD::Runner;
 use System::InitD::Const;
 
-our $VERSION = '1.26';
+our $VERSION = '1.27';
 our $ABSTRACT = "Toolkit for perl init.d manipulation";
 
 1;

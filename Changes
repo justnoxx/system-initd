@@ -1,7 +1,10 @@
-1.26 - 24.12.2014 22:17
-
+1.27 - 24.12.2014 22:17
     Removed shebangs from tests.
     
+1.26
+    Added mandatory parameter: --provides. If omitted, geninitd will ask user for input.
+    Added monitoring logic by pidfile, without process_name.
+
 1.25
 
     Added simple messages for start and stop commands.
