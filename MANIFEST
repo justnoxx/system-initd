@@ -13,4 +13,6 @@ README
 script/geninitd
 share/centos.tpl
 share/debian.tpl
-t/01test.t
+t/00-deps.t
+t/01-import.t
+t/02-logic.t

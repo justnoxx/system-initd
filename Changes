@@ -1,5 +1,8 @@
+1.29 - 27.12.2014
+    Fixed tests, updated manifest.
+
 1.28 - 25.12.2014 01:19
-    Fixed 1.27 release
+    Fixed 1.27 release.
 
 1.27 - 24.12.2014 22:17
     Removed shebangs from tests.
