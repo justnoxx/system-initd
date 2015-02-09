@@ -7,11 +7,11 @@ System::InitD
 =head1 DESCRIPTION
 
 Simple and cool toolkit for init.d scripts creation under linux systems. This distrubution includes toolkit itself
-and generator tool, geninitd, which generates init.d perl script sceleton.
+and generator tool, geninitd, which generates init.d perl script skeleton.
 
 You can see perldoc for geninitd
 
-    perldoc geninit
+    perldoc geninitd
 
 Also, for available System::InitD API see perldoc for System::InitD::Runner
 
@@ -28,7 +28,7 @@ use warnings;
 use System::InitD::Runner;
 use System::InitD::Const;
 
-our $VERSION = '1.29';
+our $VERSION = '1.31';
 our $ABSTRACT = "Toolkit for perl init.d manipulation";
 
 1;

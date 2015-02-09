@@ -165,12 +165,13 @@ sub start {
         return;
     }
 
-    my $code = system(@command);
-
+    system(@command);
+    
+    my $code = $?;
+    $code = $code >> 8;
     $self->after_start();
 
     if ($code) {
-        $code = $code >> 8;
         printf NOT_STARTED, $code;
         return;
     }
@@ -184,6 +185,10 @@ sub start {
 sub stop {
     my $self = shift;
 
+    unless ($self->{pid}) {
+        print DAEMON_IS_NOT_RUNNING;
+        return;
+    }
     print STOPPING;
     $self->confirm_permissions() or do {
         print NOT_STOPPED;
