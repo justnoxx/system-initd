@@ -1,3 +1,7 @@
+1.31 - 09.02.2015
+     Fixed typo in description.
+     Fixet exit code handling by "start" action.
+
 1.29 - 27.12.2014
     Fixed tests, updated manifest.
 
