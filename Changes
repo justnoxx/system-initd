@@ -1,3 +1,6 @@
+1.32 - 13.02.2015
+     Fixed hang when process was killed while restarting.
+     
 1.31 - 09.02.2015
      Fixed typo in description.
      Fixet exit code handling by "start" action.

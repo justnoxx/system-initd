@@ -268,6 +268,12 @@ sub usage {
 
 sub is_alive {
     my $self = shift;
+
+    # pid is missing, process is not alive
+    return 0 unless $self->{pid};
+    # let's try to refresh.
+    $self->{pid}->refresh();
+    # refresh is failed, so process is not alive.
     return 0 unless $self->{pid};
 
     if ($self->{_args}->{process_name}) {
