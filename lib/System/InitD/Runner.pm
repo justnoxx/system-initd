@@ -25,7 +25,7 @@ use Carp;
 use System::Process;
 use POSIX;
 use Time::HiRes;
-
+use Data::Dumper;
 use System::InitD::Const;
 use System::InitD::Base;
 use System::InitD::Const;
@@ -258,6 +258,8 @@ sub info {
     exit 0;
 
 }
+
+
 sub usage {
     my $self = shift;
 
@@ -269,21 +271,10 @@ sub usage {
 sub is_alive {
     my $self = shift;
 
-    # pid is missing, process is not alive
-    return 0 unless $self->{pid};
-    # let's try to refresh.
-    $self->{pid}->refresh();
-    # refresh is failed, so process is not alive.
-    return 0 unless $self->{pid};
+    my $pid = $self->{pid};
+    return 0 unless $pid;
 
-    if ($self->{_args}->{process_name}) {
-        return 1 if $self->{pid}->command() && $self->{pid}->command() eq $self->{_args}->{process_name};
-    }
-    else {
-        return 1 if $self->{pid}->command();
-    }
-
-    return 0;
+    return $pid->is_alive();
 }
 
 

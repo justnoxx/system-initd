@@ -1,3 +1,6 @@
+1.33 - 12.03.2015
+     Fixed critical issue with restart.
+
 1.32 - 13.02.2015
      Fixed hang when process was killed while restarting.
      
