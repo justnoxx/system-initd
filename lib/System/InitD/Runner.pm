@@ -1,6 +1,6 @@
 package System::InitD::Runner;
 
-=head NAME
+=head1 NAME
 
 System::InitD::Runner
 
