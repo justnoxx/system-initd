@@ -2,7 +2,7 @@ package System::InitD;
 
 =head1 NAME
 
-System::InitD
+System::InitD - Toolkit for perl init.d manipulation
 
 =head1 DESCRIPTION
 
@@ -34,4 +34,3 @@ our $ABSTRACT = "Toolkit for perl init.d manipulation";
 1;
 
 __END__
-
