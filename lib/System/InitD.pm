@@ -20,6 +20,10 @@ Also, for available System::InitD API see perldoc for System::InitD::Runner
 One day I tried to improve existing init.d bash script of some project and it was very painful.
 I love perl, so I decided to create some useful toolkit for init.d scripts written in perl.
 
+=head1 LICENSE
+
+Same as perl.
+
 =cut
 
 use strict;
